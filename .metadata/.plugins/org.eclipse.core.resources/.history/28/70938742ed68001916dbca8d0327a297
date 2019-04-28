@@ -1,0 +1,8 @@
+package brewDay;
+import java.util.Date;
+
+public class note {
+	private String content;
+	private DATE createdDate;
+	
+}
