@@ -1,0 +1,43 @@
+package brewDay;
+
+public class StorageIngredient {
+	private int idOfStorageIngredient;
+	private String nameOfStorageIngredient;
+	private float amountOfStorageingredient;
+	private char unitOfstorageIngredient;
+	private Brew brew;
+	
+	public StorageIngredient(int idOfStorageIngredient, String nameOfStorageIngredient, float amountOfStorageingredient, char unitOfstorageIngredient, int brewID) {
+		this.idOfStorageIngredient = idOfStorageIngredient;
+		this.nameOfStorageIngredient =nameOfStorageIngredient;
+		this.amountOfStorageingredient = amountOfStorageingredient;
+		this.unitOfstorageIngredient = unitOfstorageIngredient;
+		this.brew.setIdOfBrew(brewID);
+	}
+	
+	public boolean addAmount(int id, float amount) {
+		if(amount < 0) {
+			return false;
+		}
+		else if(id == this.idOfStorageIngredient) {
+			this.amountOfStorageingredient += amount;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean subtractAmount(int id, float amount) {
+		if(amount < 0) {
+			return false;
+		}
+		else if(this.amountOfStorageingredient > amount) {
+			this.amountOfStorageingredient -= amount;
+			return false;
+		}
+		else {
+			return false;
+		}
+	}
+}

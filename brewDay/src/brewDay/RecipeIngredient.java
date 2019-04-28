@@ -6,21 +6,28 @@ public class RecipeIngredient {
 	private String nameOfRecipeIngredient;
 	private float amountOfRecipeIngredient;
 	private int idOfRecipeIngredient;
-	private ArrayList<Recipe> recipes;
+	private Recipe recipes;
+	
+	public RecipeIngredient(String nameOfRecipeIngredient, float amountOfRecipeIngredient, int idOfRecipeIngredient, int recipeId) {
+		this.setNameOfRecipeIngredient(nameOfRecipeIngredient);
+		this.setAmountOfRecipeIngredient(amountOfRecipeIngredient);
+		this.idOfRecipeIngredient = idOfRecipeIngredient;
+		this.recipes.setIdOfRecipe(recipeId);
+	}
 	
 	public boolean updateAmount (float amount) {
 		if(amount < 0) {
 			return false;
 		}
 		else {
-			this.amountOfRecipeIngredient = amount;
+			this.setAmountOfRecipeIngredient(amount);
 			return true;
 		}
 	}
 	
 	public boolean updateName(String name) {
 		if(name != null) {
-			this.nameOfRecipeIngredient = name;
+			this.setNameOfRecipeIngredient(name);
 			return true;
 		}
 		else
@@ -30,8 +37,8 @@ public class RecipeIngredient {
 	@SuppressWarnings("null")
 	public boolean delete(int id) {
 		if(this.idOfRecipeIngredient == id) {
-			this.nameOfRecipeIngredient = null;
-			this.amountOfRecipeIngredient = (Float) null;
+			this.setNameOfRecipeIngredient(null);
+			this.setAmountOfRecipeIngredient((Float) null);
 			this.idOfRecipeIngredient = (Integer) null;
 			return true;
 		}
@@ -39,5 +46,21 @@ public class RecipeIngredient {
 			return false;
 		}
 		
+	}
+
+	public String getNameOfRecipeIngredient() {
+		return nameOfRecipeIngredient;
+	}
+
+	public void setNameOfRecipeIngredient(String nameOfRecipeIngredient) {
+		this.nameOfRecipeIngredient = nameOfRecipeIngredient;
+	}
+
+	public float getAmountOfRecipeIngredient() {
+		return amountOfRecipeIngredient;
+	}
+
+	public void setAmountOfRecipeIngredient(float amountOfRecipeIngredient) {
+		this.amountOfRecipeIngredient = amountOfRecipeIngredient;
 	}
 }

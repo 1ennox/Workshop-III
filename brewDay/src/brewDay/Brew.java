@@ -12,12 +12,20 @@ public class Brew {
 	public Brew(float batchSize, int idOfBrew) {
 		if(batchSize > 0) {
 			this.batchSize = batchSize;
-			this.idOfBrew = idOfBrew;
+			this.setIdOfBrew(idOfBrew);
 		}
 	}
 	
 	public boolean implement(float batchSize) {
 		if()
+	}
+
+	public int getIdOfBrew() {
+		return idOfBrew;
+	}
+
+	public void setIdOfBrew(int idOfBrew) {
+		this.idOfBrew = idOfBrew;
 	}
 }
 
