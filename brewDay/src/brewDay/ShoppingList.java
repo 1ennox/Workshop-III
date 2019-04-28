@@ -1,5 +1,6 @@
 package brewDay;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ public class ShoppingList {
 	private float NumberOfIngredient;
 	private Date ShoppingList;
 	private int idOfShoppingDate;
-	private Set<Ingredient> ingredients;
+	private ArrayList<Ingredient> ingredients;
 	
 	public ShoppingList(int id) {
 		this.idOfShoppingDate = id;
@@ -27,7 +28,11 @@ public class ShoppingList {
 	
 	public boolean delete(int id) {
 		if(this.idOfShoppingDate == id) {
-			Set.clear(Ingredient);
+			ingredients.clear();
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 }
