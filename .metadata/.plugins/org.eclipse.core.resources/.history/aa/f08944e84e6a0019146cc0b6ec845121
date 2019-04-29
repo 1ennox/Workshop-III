@@ -8,7 +8,7 @@ public class Recipe {
 	private char unit;
 	private int idOfrecipe;
 	private ArrayList<RecipeIngredient> recipeIngredients;
-
+s
 	public String getNameOfRecipe() {
 		return nameOfRecipe;
 	}
