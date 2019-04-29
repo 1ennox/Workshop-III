@@ -8,6 +8,18 @@ public class Ingredient {
 	private RecipeIngredient recipeIngredient;
 	private StorageIngredient storageIngredient;
 	
+	public String getNameOfIngredient() {
+		return nameOfIngredient;
+	}
+	public void setNameOfIngredient(String nameOfIngredient) {
+		this.nameOfIngredient = nameOfIngredient;
+	}
+	public StorageIngredient getStorageIngredient() {
+		return storageIngredient;
+	}
+	public void setStorageIngredient(StorageIngredient storageIngredient) {
+		this.storageIngredient = storageIngredient;
+	}
 	public Ingredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
 		this.idOfIngredient = idOfIngredient;
 		this.nameOfIngredient = nameOfIngredient;

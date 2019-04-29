@@ -1,5 +1,8 @@
 package brewDay;
 
+<<<<<<< HEAD
+public class StorageIngredient extends Ingredient {
+=======
 public class StorageIngredient {
 <<<<<<< HEAD
 	private int idOfIngredeint;
@@ -18,55 +21,25 @@ public class StorageIngredient {
 	private String nameOfStorageIngredient;
 	private float amountOfStorageingredient;
 	private char unitOfstorageIngredient;
+>>>>>>> e319a684b2b534fddcef2da09c295c00a9655736
 	private Brew brew;
 	
-	public StorageIngredient(int idOfStorageIngredient, String nameOfStorageIngredient, float amountOfStorageingredient, char unitOfstorageIngredient, int brewID) {
-		this.idOfStorageIngredient = idOfStorageIngredient;
-		this.setNameOfStorageIngredient(nameOfStorageIngredient);
-		this.amountOfStorageingredient = amountOfStorageingredient;
-		this.unitOfstorageIngredient = unitOfstorageIngredient;
-		this.brew.setIdOfBrew(brewID);
+	public StorageIngredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient,
+			char unitOfIngredient) {
+		super(idOfIngredient, nameOfIngredient, amountOfIngredient, unitOfIngredient);
+	}
+
+	public boolean addAmount(String name, float amount) {
+		
+		setAmountOfIngredient(getAmountOfIngredient() + super.getAmountOfIngredient());
 	}
 	
-	public boolean addAmount(int id, float amount) {
-		if(amount < 0) {
-			return false;
-		}
-		else if(id == this.idOfStorageIngredient) {
-			this.amountOfStorageingredient += amount;
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public boolean subtractAmount(int id, float amount) {
-		if(amount < 0) {
-			return false;
-		}
-		else if(this.amountOfStorageingredient > amount) {
-			this.amountOfStorageingredient -= amount;
-			return false;
-		}
-		else {
-			return false;
-		}
-	}
 
-	public String getNameOfStorageIngredient() {
-		return nameOfStorageIngredient;
-	}
-
-	public void setNameOfStorageIngredient(String nameOfStorageIngredient) {
-		this.nameOfStorageIngredient = nameOfStorageIngredient;
-	}
-	public float getAmountOfStorageingredient() {
-		return amountOfStorageingredient;
-	}
-
+<<<<<<< HEAD
+=======
 	public void setAmountOfStorageingredient(float amountOfStorageingredient) {
 		this.amountOfStorageingredient = amountOfStorageingredient;
 >>>>>>> 7f070b3d6b80f77eae57712a471163f532ad8ab7
 	}
+>>>>>>> e319a684b2b534fddcef2da09c295c00a9655736
 }

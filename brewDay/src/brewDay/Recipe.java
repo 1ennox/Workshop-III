@@ -52,8 +52,12 @@ public class Recipe {
 
 =======
 	private int idOfRecipe;
+<<<<<<< HEAD
+	private ArrayList<RecipeIngredient> recipeIngredients;
+=======
 //	private ArrayList<RecipeIngredient> recipeIngredients;
 >>>>>>> 7f070b3d6b80f77eae57712a471163f532ad8ab7
+>>>>>>> e319a684b2b534fddcef2da09c295c00a9655736
 	
 	public Recipe(String nameOfRecipe, float quantityOfRecipe, char unit, int id) {
 		this.setNameOfRecipe(nameOfRecipe);
@@ -62,6 +66,64 @@ public class Recipe {
 		this.setIdOfRecipe(id);
 	}
 	
+	
+	
+	public char getUnit() {
+		return unit;
+	}
+
+	public void setUnit(char unit) {
+		this.unit = unit;
+	}
+
+	public ArrayList<RecipeIngredient> getRecipeIngredients() {
+		return recipeIngredients;
+	}
+
+	public void addRecipeIngredients(RecipeIngredient recipeIngredient) {
+		this.recipeIngredients.add(recipeIngredient);
+	}
+	
+	public boolean deleteRecipeIngredient(RecipeIngredient recipeIngredient) {
+		int k = 0;
+		for(RecipeIngredient nameOfRecipeIngredient: recipeIngredients) {
+			if(k == recipeIngredients.size()) {
+				return false;
+			}
+			if(nameOfRecipeIngredient.equals(recipeIngredient.getNameOfRecipeIngredient())) {
+				recipeIngredients.remove(recipeIngredient);
+				return true;
+			}
+			k += 1;
+		}
+		return false;
+	}
+	
+	public int getIdOfRecipe() {
+		return idOfRecipe;
+	}
+
+	public void setIdOfRecipe(int idOfRecipe) {
+		this.idOfRecipe = idOfRecipe;
+	}
+
+	public float getQuantityOfRecipe() {
+		return quantityOfRecipe;
+	}
+
+	public void setQuantityOfRecipe(float quantityOfRecipe) {
+		this.quantityOfRecipe = quantityOfRecipe;
+	}
+
+	public String getNameOfRecipe() {
+		return nameOfRecipe;
+	}
+
+	public void setNameOfRecipe(String nameOfRecipe) {
+		this.nameOfRecipe = nameOfRecipe;
+	}
+	
+
 	public boolean updateName(String name) {
 		if(name != null) {
 			this.setNameOfRecipe(name);
@@ -92,31 +154,5 @@ public class Recipe {
 		}
 		else 
 			return false;
-	}
-
-	public int getIdOfRecipe() {
-		return idOfRecipe;
-	}
-
-	public void setIdOfRecipe(int idOfRecipe) {
-		this.idOfRecipe = idOfRecipe;
-	}
-
-	public float getQuantityOfRecipe() {
-		return quantityOfRecipe;
-	}
-
-	public void setQuantityOfRecipe(float quantityOfRecipe) {
-		this.quantityOfRecipe = quantityOfRecipe;
-	}
-
-	public String getNameOfRecipe() {
-		return nameOfRecipe;
-	}
-
-	public void setNameOfRecipe(String nameOfRecipe) {
-		this.nameOfRecipe = nameOfRecipe;
-	}
-	
-	
+	}	
 }

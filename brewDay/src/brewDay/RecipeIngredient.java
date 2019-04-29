@@ -1,18 +1,15 @@
 package brewDay;
 
-import java.util.ArrayList;
 
 public class RecipeIngredient {
 	private String nameOfRecipeIngredient;
 	private float amountOfRecipeIngredient;
 	private int idOfRecipeIngredient;
-	private Recipe recipes;
 	
 	public RecipeIngredient(String nameOfRecipeIngredient, float amountOfRecipeIngredient, int idOfRecipeIngredient, int recipeId) {
 		this.setNameOfRecipeIngredient(nameOfRecipeIngredient);
 		this.setAmountOfRecipeIngredient(amountOfRecipeIngredient);
 		this.idOfRecipeIngredient = idOfRecipeIngredient;
-		this.recipes.setIdOfRecipe(recipeId);
 	}
 	
 	public boolean updateAmount (float amount) {

@@ -2,22 +2,31 @@ package brewDay;
 import java.util.Date;
 
 public class Brew {
-	private StorageIngredient ingredient;
 	private float batchSize;
 	private Date date;
 	private Date time;
 	private int idOfBrew;
-	private Note note;
 	
-	public Brew(float batchSize, int idOfBrew) {
+	private Note note;
+	private Recipe recipe;
+	private StorageIngredient ingredient;
+	
+	public Brew(float batchSize, int idOfBrew, int recipeId) {
 		if(batchSize > 0) {
 			this.batchSize = batchSize;
 			this.setIdOfBrew(idOfBrew);
+			this.date = new Date(System.currentTimeMillis());
+			this.recipe.setIdOfRecipe(recipeId); 
 		}
 	}
 	
-	public boolean implement(float batchSize) {
-		if()
+	public boolean implement(float batchSize, int brewId) {
+		int k = 0;
+		for(RecipeIngredient recipeIngredients: recipe) {
+			if(recipeIngredients.getNameOfRecipeIngredient()) {
+				
+			}
+		}
 	}
 
 	public int getIdOfBrew() {
