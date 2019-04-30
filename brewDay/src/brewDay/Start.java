@@ -1,5 +1,3 @@
-package brewDay;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,13 +6,12 @@ public class Start {
 
 	public static void main(String[] args) {
 //		ShoppingList sl = new ShoppingList("Shopping list 1");
-//		
 //		sl.addIngredient("water", 100, 'L');
-//		sl.addIngredient(002, "salt", 500, 'g');
-//		
+//		sl.addIngredient("salt", 500, 'g');
+////
 //		Recipe r = new Recipe("Beer", 100, 'L');
-//		RecipeIngredient ri1 = new RecipeIngredient(006, "water", 50, 'L');
-//		RecipeIngredient ri2 = new RecipeIngredient(001, "salt", 100, 'g');
+//		RecipeIngredient ri1 = new RecipeIngredient("water", 50, 'L');
+//		RecipeIngredient ri2 = new RecipeIngredient("salt", 100, 'g');
 //		r.addRecipeIngredients(ri1);
 //		r.addRecipeIngredients(ri2);
 //		System.out.println("Recipe " + r.getNameOfRecipe() + " has been successfully added!");
@@ -25,14 +22,6 @@ public class Start {
 //		}
 //		Brew b1 = new Brew(50, 002, r);
 //		b1.implement(50, 002);
-//		
-//		Brew b = new Brew(10, r);
-//		try {
-//			b.implement(1, r);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		System.out.println("---Welcome to Brew Day!---\n");
 		System.out.println("Input the number to select the option you want:");
 		System.out.println("1.Maintain recipe");
@@ -95,7 +84,7 @@ public class Start {
 			if (c.equals("3")) {
 				System.out.println("---You are in 3.History---");
 				System.out.println("Input the volume of the beer you want to brew: (ml)");
-				Scanner readVolume = new Scanner(System.in); 
+				Scanner readVolume = new Scanner(System.in);
 				String inputVolume = readVolume.next();
 				// output the lack of recipe here and the shopping list
 			}
@@ -111,5 +100,4 @@ public class Start {
 			}
 		}
 	}
-		
 }

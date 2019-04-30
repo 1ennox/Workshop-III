@@ -1,5 +1,3 @@
-package brewDay;
-
 public class StorageIngredient extends Ingredient {
 	private Brew brew;
 

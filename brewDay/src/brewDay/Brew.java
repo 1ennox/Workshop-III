@@ -1,4 +1,3 @@
-package brewDay;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,40 +22,40 @@ public class Brew {
 
 	public boolean implement(float batchSize, Recipe recipe) throws SQLException {
 		int k = 0;
-		if(batchSize < 0) {
+		if (batchSize < 0) {
 			return false;
-		}
-		else {
+		} else {
 			int flag = 0;
 			ResultSet getRId = Database.Select("SELECT RecipeID FROM Recipe WHERE NAME = '" + recipe.getNameOfRecipe() + "'");
 			int Rid = getRId.getInt("RecipeID");
 			ResultSet getRI = Database.Select("SELECT Name, Amount FROM Recipe Where RecipeID = " + Rid);
-			while(getRI.next()) {
+			while (getRI.next()) {
 				String nameOfRI = getRI.getString("Name");
 				int amountOfRI = getRI.getInt("Amount");
 				ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
 				int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
-				if(amountOfRI >= amountOfIngredient) {
+				if (amountOfRI >= amountOfIngredient) {
 					continue;
-				}
-				else {
+				} else {
 					flag = 1;
 					break;
 				}
 			}
-			if(flag == 0) {
-				while(getRI.next()) {
+			if (flag == 0) {
+				while (getRI.next()) {
 					String nameOfRI = getRI.getString("Name");
 					int amountOfRI = getRI.getInt("Amount");
 					ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
 					int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
 					int result = amountOfIngredient - amountOfRI;
-					String k1 = "Update Ingredient SET Amount = " + result + "WHERE Name = '" + nameOfRI + "'";
-					ResultSet updateAmount = Database.Update();
+					String k1 = "UPDATE Ingredient SET Amount = " + result + "WHERE Name = '" + nameOfRI + "'";
+					Database.Update(k1);
+					return true;
 				}
 
 			}
+			return false;
 		}
-
+	}
 	}
 

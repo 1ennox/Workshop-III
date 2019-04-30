@@ -1,5 +1,3 @@
-package brewDay;
-
 import java.util.ArrayList;
 
 public class Recipe {
