@@ -6,9 +6,9 @@ public class Brew {
 	private float batchSize;
 	private Date date;
 	private Date time;
+	private ArrayList<Integer> recipeId;
 	
 	private Note note;
-	private Recipe recipe;
 	private StorageIngredient ingredient;
 	
 	public Brew(float batchSize, Recipe recipe) {
@@ -27,8 +27,8 @@ public class Brew {
 		else {
 			ArrayList<RecipeIngredient> RI = recipe.getRecipeIngredients();
 			for(int k1 = 0; k1 < RI.size(); k1++) {
+				String tempName = RI.get(k1).getNameOfIngredient();
 				
-				if( )
 			}
 		}
 	}

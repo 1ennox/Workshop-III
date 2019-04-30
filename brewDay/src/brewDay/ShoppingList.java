@@ -1,5 +1,4 @@
 package brewDay;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
@@ -15,12 +14,14 @@ public class ShoppingList {
 		this.NumberOfIngredient = 0;
 		this.ingredients = new ArrayList<Ingredient>();
 	}
-	
-	
-	
+
 	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
 		Ingredient i = new Ingredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
 		this.ingredients.add(i);
+		
+		String sql = "Insert Into Ingredient Values (NULL,'" + nameOfIngredient + "','" + amountOfIngredient + "','" + unitOfIngredient + "')";
+		System.out.println(sql);
+		Database.Insert(sql);
 		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the shopping list!");
 	}
 	

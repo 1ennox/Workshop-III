@@ -7,27 +7,15 @@ public class Recipe {
 	private float quantityOfRecipe;
 	private char unit;
 
-	private int idOfrecipe;
 	private ArrayList<RecipeIngredient> recipeIngredients;
 
 
-	public Recipe(String nameOfRecipe, float quantityOfRecipe, char unit, int id) {
+	public Recipe(String nameOfRecipe, float quantityOfRecipe, char unit) {
 		this.setNameOfRecipe(nameOfRecipe);
 		this.setQuantityOfRecipe(quantityOfRecipe);
 		this.unit = unit;
-		this.setIdOfRecipe(id);
 		this.recipeIngredients = new ArrayList<RecipeIngredient>();
 	}
-	
-	
-	public int getIdOfrecipe() {
-		return idOfrecipe;
-	}
-
-	public void setIdOfrecipe(int idOfrecipe) {
-		this.idOfrecipe = idOfrecipe;
-	}
-
 
 	public void setRecipeIngredients(ArrayList<RecipeIngredient> recipeIngredients) {
 		this.recipeIngredients = recipeIngredients;
@@ -47,14 +35,6 @@ public class Recipe {
 
 	public void addRecipeIngredients(RecipeIngredient recipeIngredient) {
 		this.recipeIngredients.add(recipeIngredient);
-	}
-	
-	public int getIdOfRecipe() {
-		return idOfrecipe;
-	}
-
-	public void setIdOfRecipe(int idOfRecipe) {
-		this.idOfrecipe = idOfRecipe;
 	}
 
 	public float getQuantityOfRecipe() {
@@ -108,15 +88,10 @@ public class Recipe {
 	}
 	
 	@SuppressWarnings("null")
-	public boolean deleteRecipe(int id) {
-		if(this.getIdOfRecipe() == id) {
-			this.setIdOfRecipe((Integer) null);
+	public boolean deleteRecipe(String name) {
 			this.setNameOfRecipe(null);
 			this.setQuantityOfRecipe((Float) null);
 			this.unit = (Character) null;
 			return true;
-		}
-		else 
-			return false;
 	}	
 }
