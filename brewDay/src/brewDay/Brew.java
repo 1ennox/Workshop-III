@@ -1,44 +1,37 @@
 package brewDay;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Brew {
 	private float batchSize;
 	private Date date;
 	private Date time;
-	private int idOfBrew;
 	
 	private Note note;
 	private Recipe recipe;
 	private StorageIngredient ingredient;
 	
-	public Brew(float batchSize, int idOfBrew, int recipeId) {
+	public Brew(float batchSize, Recipe recipe) {
 		if(batchSize > 0) {
 			this.batchSize = batchSize;
-			this.setIdOfBrew(idOfBrew);
 			this.date = new Date(System.currentTimeMillis());
-			this.recipe.setIdOfRecipe(recipeId); 
+			this.recipe = recipe; 
 		}
 	}
 	
-	public boolean implement(float batchSize, int brewId) {
+	public boolean implement(float batchSize, Recipe recipe) {
 		int k = 0;
-		for(RecipeIngredient recipeIngredients: recipe.getRecipeIngredients()) {
-			if(recipeIngredients.getAmountOfRecipeIngredient() >= ingredient.getAmountOfIngredient()) {
-				ingredient.setAmountOfIngredient(recipeIngredients.getAmountOfRecipeIngredient() - ingredient.getAmountOfIngredient());
-				return true;
-			}
-			else 
-				return false;
+		if(batchSize < 0) {
+			return false;
 		}
-		return false;
+		else {
+			ArrayList<RecipeIngredient> RI = recipe.getRecipeIngredients();
+			for(int k1 = 0; k1 < RI.size(); k1++) {
+				
+				if( )
+			}
+		}
 	}
 
-	public int getIdOfBrew() {
-		return idOfBrew;
-	}
-
-	public void setIdOfBrew(int idOfBrew) {
-		this.idOfBrew = idOfBrew;
-	}
 }
 

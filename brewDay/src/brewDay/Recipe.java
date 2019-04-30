@@ -19,6 +19,7 @@ public class Recipe {
 		this.recipeIngredients = new ArrayList<RecipeIngredient>();
 	}
 	
+	
 	public int getIdOfrecipe() {
 		return idOfrecipe;
 	}

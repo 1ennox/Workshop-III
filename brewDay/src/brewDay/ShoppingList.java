@@ -5,27 +5,28 @@ import java.util.Date;
 import java.util.Set;
 
 public class ShoppingList {
-//	private String nameOfIngredient;
+	private String nameOfIngredient;
 	private float NumberOfIngredient;
-	private Date ShoppingList;
-	private int idOfShoppingDate;
+	private Date ShoppingDate;
 	private ArrayList<Ingredient> ingredients;
 	
-	public ShoppingList(int id) {
-		this.idOfShoppingDate = id;
+	public ShoppingList(String name) {
+		this.nameOfIngredient = name;
 		this.NumberOfIngredient = 0;
 		this.ingredients = new ArrayList<Ingredient>();
 	}
 	
-	public void addIngredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
-		Ingredient i = new Ingredient(idOfIngredient, nameOfIngredient, amountOfIngredient, unitOfIngredient);
-		ingredients.add(i);
+	
+	
+	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
+		Ingredient i = new Ingredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
+		this.ingredients.add(i);
 		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the shopping list!");
 	}
 	
 	public void getNameOfAllIngredients() {
 		for(int k = 0; k < ingredients.size(); k++) {
-			System.out.println(ingredients[k].getNameOfIngredient());
+			System.out.println(ingredients.get(k).getNameOfIngredient());
 		}
 	}
 	
@@ -42,14 +43,24 @@ public class ShoppingList {
 			return true;
 		}
 	}
-	
-	public boolean delete(int id) {
-		if(this.idOfShoppingDate == id) {
-			ingredients.clear();
-			return true;
-		}
-		else {
-			return false;
-		}
+
+	public ArrayList<Ingredient> getIngredients() {
+		return ingredients;
 	}
+
+
+
+	public void setIngredients(ArrayList<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+
+
+	
+
+
+
+
+	
+	
 }

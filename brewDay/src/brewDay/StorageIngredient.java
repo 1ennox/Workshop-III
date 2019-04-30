@@ -3,9 +3,9 @@ package brewDay;
 public class StorageIngredient extends Ingredient {
 	private Brew brew;
 
-	public StorageIngredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient,
+	public StorageIngredient(String nameOfIngredient, float amountOfIngredient,
 			char unitOfIngredient) {
-		super(idOfIngredient, nameOfIngredient, amountOfIngredient, unitOfIngredient);
+		super(nameOfIngredient, amountOfIngredient, unitOfIngredient);
 	}
 
 	public boolean addAmount(String name, float amount) {

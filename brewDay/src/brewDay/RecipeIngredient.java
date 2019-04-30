@@ -3,8 +3,8 @@ package brewDay;
 
 public class RecipeIngredient extends Ingredient {
 	
-	public RecipeIngredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
-		super(idOfIngredient, nameOfIngredient, amountOfIngredient, unitOfIngredient);
+	public RecipeIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
+		super(nameOfIngredient, amountOfIngredient, unitOfIngredient);
 	}
 
 	public float getAmountOfRecipeIngredient() {

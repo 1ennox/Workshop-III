@@ -1,7 +1,6 @@
 package brewDay;
 
 public class Ingredient {
-	private int idOfIngredient;
 	private String nameOfIngredient;
 	private float amountOfIngredient;
 	private char unitOfIngredient;
@@ -9,8 +8,7 @@ public class Ingredient {
 	private RecipeIngredient recipeIngredient;
 	private StorageIngredient storageIngredient;
 	
-	public Ingredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
-		this.idOfIngredient = idOfIngredient;
+	public Ingredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
 		this.nameOfIngredient = nameOfIngredient;
 		this.setAmountOfIngredient(amountOfIngredient);
 		 this.unitOfIngredient = unitOfIngredient;
@@ -52,7 +50,6 @@ public class Ingredient {
 	public boolean deleteIngredient(String name) {
 		if(this.nameOfIngredient.equals(name)) {
 			this.nameOfIngredient = null;
-			this.idOfIngredient = (Integer) null;
 			this.setAmountOfIngredient((Float) null);
 			this.unitOfIngredient = (Character) null;
 			return true;
