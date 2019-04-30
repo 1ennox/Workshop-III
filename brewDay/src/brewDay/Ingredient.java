@@ -5,9 +5,6 @@ public class Ingredient {
 	private float amountOfIngredient;
 	private char unitOfIngredient;
 	
-	private RecipeIngredient recipeIngredient;
-	private StorageIngredient storageIngredient;
-	
 	public Ingredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
 		this.nameOfIngredient = nameOfIngredient;
 		this.setAmountOfIngredient(amountOfIngredient);
@@ -24,26 +21,16 @@ public class Ingredient {
 	public String getNameOfIngredient() {
 		return nameOfIngredient;
 	}
+	
 	public void setNameOfIngredient(String nameOfIngredient) {
 		this.nameOfIngredient = nameOfIngredient;
 	}
-	public StorageIngredient getStorageIngredient() {
-		return storageIngredient;
-	}
-	public void setStorageIngredient(StorageIngredient storageIngredient) {
-		this.storageIngredient = storageIngredient;
-	}
 	
-	public boolean addIngredient(String name, float amount, char unit) throws Exception {
-		if(amount < 0) {
-			return false;
-		}
-		else if (this.nameOfIngredient.equals(name) && this.unitOfIngredient == unit) {
-			this.setAmountOfIngredient(this.getAmountOfIngredient() + amount);
-			return true;
-		}
-		else
-			return false;
+	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
+		Ingredient i = new Ingredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
+		String sql = "Insert Into Ingredient Values (NULL,'" + nameOfIngredient + "','" + amountOfIngredient + "','" + unitOfIngredient + "')";
+		Database.Insert(sql);
+		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the shopping list!");
 	}
 	
 	@SuppressWarnings("null")
