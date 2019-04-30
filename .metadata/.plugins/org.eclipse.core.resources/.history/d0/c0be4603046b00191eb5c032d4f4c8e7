@@ -1,0 +1,12 @@
+package brewDay;
+
+public class Start {
+
+	public static void main(String[] args) {
+		ShoppingList sl = new ShoppingList(001);
+		sl.addIngredient(001, "water", 100, 'L');
+		sl.addIngredient(002, "salt", 500, 'g');
+		
+	}
+
+}

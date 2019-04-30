@@ -1,0 +1,57 @@
+package brewDay;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Set;
+
+public class ShoppingList {
+//	private String nameOfIngredient;
+	private float NumberOfIngredient;
+	private Date ShoppingList;
+	private int idOfShoppingDate;
+	private ArrayList<Ingredient> ingredients;
+	
+	public ShoppingList(int id) {
+		this.idOfShoppingDate = id;
+		this.NumberOfIngredient = 0;
+		this.ingredients = new ArrayList<Ingredient>();
+	}
+	
+	public void addIngredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
+		Ingredient i = new Ingredient(idOfIngredient, nameOfIngredient, amountOfIngredient, unitOfIngredient);
+		ingredients.add(i);
+		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the shopping list!");
+	}
+	
+	
+	public String getNameOfIngredients() {
+		for(Ingredient i : ingredients) {
+			return i.getNameOfIngredient();
+		}
+		return null;
+	}
+	
+	public int getSizeOfArrayList() {
+		return this.ingredients.size();
+	}
+	
+	public boolean updateNumber(float NumberOfIngredient) {
+		if(NumberOfIngredient < (float)0) {
+			return false;
+		}
+		else {
+			this.NumberOfIngredient = NumberOfIngredient;
+			return true;
+		}
+	}
+	
+	public boolean delete(int id) {
+		if(this.idOfShoppingDate == id) {
+			ingredients.clear();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+}

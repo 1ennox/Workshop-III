@@ -16,6 +16,7 @@ public class Recipe {
 		this.setQuantityOfRecipe(quantityOfRecipe);
 		this.unit = unit;
 		this.setIdOfRecipe(id);
+		this.recipeIngredients = new ArrayList<RecipeIngredient>();
 	}
 	
 	public int getIdOfrecipe() {

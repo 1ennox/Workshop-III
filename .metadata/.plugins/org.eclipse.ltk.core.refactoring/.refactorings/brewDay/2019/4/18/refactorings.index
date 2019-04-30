@@ -6,3 +6,4 @@
 1556457750412	Encapsulate field 'amountOfIngredient'
 1556458570560	Encapsulate field 'idOfBrew'
 1556458834882	Encapsulate field 'nameOfStorageIngredient'
+1556601421251	Encapsulate field 'ingredients'

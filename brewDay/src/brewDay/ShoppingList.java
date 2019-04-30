@@ -14,6 +14,23 @@ public class ShoppingList {
 	public ShoppingList(int id) {
 		this.idOfShoppingDate = id;
 		this.NumberOfIngredient = 0;
+		this.ingredients = new ArrayList<Ingredient>();
+	}
+	
+	public void addIngredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
+		Ingredient i = new Ingredient(idOfIngredient, nameOfIngredient, amountOfIngredient, unitOfIngredient);
+		ingredients.add(i);
+		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the shopping list!");
+	}
+	
+	public void getNameOfAllIngredients() {
+		for(int k = 0; k < ingredients.size(); k++) {
+			System.out.println(ingredients[k].getNameOfIngredient());
+		}
+	}
+	
+	public int getSizeOfArrayList() {
+		return this.ingredients.size();
 	}
 	
 	public boolean updateNumber(float NumberOfIngredient) {
