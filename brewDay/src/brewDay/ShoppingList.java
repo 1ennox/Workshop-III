@@ -15,6 +15,14 @@ public class ShoppingList {
 		this.ingredients = new ArrayList<Ingredient>();
 	}
 
+	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
+		Ingredient i = new Ingredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
+		this.ingredients.add(i);
+		String sql = "Insert Into Ingredient Values (NULL,'" + nameOfIngredient + "','" + amountOfIngredient + "','" + unitOfIngredient + "')";
+		Database.Insert(sql);
+		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the shopping list!");
+	}
+	
 	public void getNameOfAllIngredients() {
 		for(int k = 0; k < ingredients.size(); k++) {
 			System.out.println(ingredients.get(k).getNameOfIngredient());

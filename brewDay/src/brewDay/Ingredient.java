@@ -35,13 +35,6 @@ public class Ingredient {
 	
 	@SuppressWarnings("null")
 	public boolean deleteIngredient(String name) {
-		if(this.nameOfIngredient.equals(name)) {
-			this.nameOfIngredient = null;
-			this.setAmountOfIngredient((Float) null);
-			this.unitOfIngredient = (Character) null;
-			return true;
-		}
-		else
-			return false;
+		String sql = "DELETE FROM Ingredient WHERE Name = '" + name + "';"
 	}
 }

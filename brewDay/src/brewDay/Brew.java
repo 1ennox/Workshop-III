@@ -1,4 +1,6 @@
 package brewDay;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -6,11 +8,11 @@ public class Brew {
 	private float batchSize;
 	private Date date;
 	private Date time;
-	private ArrayList<Integer> recipeId;
-	
+
 	private Note note;
+	private Recipe recipe;
 	private StorageIngredient ingredient;
-	
+
 	public Brew(float batchSize, Recipe recipe) {
 		if(batchSize > 0) {
 			this.batchSize = batchSize;
@@ -18,20 +20,43 @@ public class Brew {
 			this.recipe = recipe; 
 		}
 	}
-	
-	public boolean implement(float batchSize, Recipe recipe) {
+
+	public boolean implement(float batchSize, Recipe recipe) throws SQLException {
 		int k = 0;
 		if(batchSize < 0) {
 			return false;
 		}
 		else {
-			ArrayList<RecipeIngredient> RI = recipe.getRecipeIngredients();
-			for(int k1 = 0; k1 < RI.size(); k1++) {
-				String tempName = RI.get(k1).getNameOfIngredient();
-				
+			int flag = 0;
+			ResultSet getRId = Database.Select("SELECT RecipeID FROM Recipe WHERE NAME = '" + recipe.getNameOfRecipe() + "'");
+			int Rid = getRId.getInt("RecipeID");
+			ResultSet getRI = Database.Select("SELECT Name, Amount FROM Recipe Where RecipeID = " + Rid);
+			while(getRI.next()) {
+				String nameOfRI = getRI.getString("Name");
+				int amountOfRI = getRI.getInt("Amount");
+				ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
+				int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
+				if(amountOfRI >= amountOfIngredient) {
+					continue;
+				}
+				else {
+					flag = 1;
+					break;
+				}
+			}
+			if(flag == 0) {
+				while(getRI.next()) {
+					String nameOfRI = getRI.getString("Name");
+					int amountOfRI = getRI.getInt("Amount");
+					ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
+					int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
+					int result = amountOfIngredient - amountOfRI;
+					String k1 = "Update Ingredient SET Amount = " + result + "WHERE Name = '" + nameOfRI + "'";
+					ResultSet updateAmount = Database.Update();
+				}
+
 			}
 		}
-	}
 
-}
+	}
 
