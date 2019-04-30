@@ -5,8 +5,23 @@ public class Ingredient {
 	private String nameOfIngredient;
 	private float amountOfIngredient;
 	private char unitOfIngredient;
+	
 	private RecipeIngredient recipeIngredient;
 	private StorageIngredient storageIngredient;
+	
+	public Ingredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
+		this.idOfIngredient = idOfIngredient;
+		this.nameOfIngredient = nameOfIngredient;
+		this.setAmountOfIngredient(amountOfIngredient);
+		 this.unitOfIngredient = unitOfIngredient;
+	}
+	
+	public float getAmountOfIngredient() {
+		return amountOfIngredient;
+	}
+	public void setAmountOfIngredient(float amountOfIngredient) {
+		this.amountOfIngredient = amountOfIngredient;
+	}
 	
 	public String getNameOfIngredient() {
 		return nameOfIngredient;
@@ -20,12 +35,7 @@ public class Ingredient {
 	public void setStorageIngredient(StorageIngredient storageIngredient) {
 		this.storageIngredient = storageIngredient;
 	}
-	public Ingredient(int idOfIngredient, String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
-		this.idOfIngredient = idOfIngredient;
-		this.nameOfIngredient = nameOfIngredient;
-		this.setAmountOfIngredient(amountOfIngredient);
-		 this.unitOfIngredient = unitOfIngredient;
-	}
+	
 	public boolean addIngredient(String name, float amount, char unit) throws Exception {
 		if(amount < 0) {
 			return false;
@@ -49,11 +59,5 @@ public class Ingredient {
 		}
 		else
 			return false;
-	}
-	public float getAmountOfIngredient() {
-		return amountOfIngredient;
-	}
-	public void setAmountOfIngredient(float amountOfIngredient) {
-		this.amountOfIngredient = amountOfIngredient;
 	}
 }

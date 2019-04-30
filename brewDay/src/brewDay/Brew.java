@@ -22,11 +22,15 @@ public class Brew {
 	
 	public boolean implement(float batchSize, int brewId) {
 		int k = 0;
-		for(RecipeIngredient recipeIngredients: recipe) {
-			if(recipeIngredients.getNameOfRecipeIngredient()) {
-				
+		for(RecipeIngredient recipeIngredients: recipe.getRecipeIngredients()) {
+			if(recipeIngredients.getAmountOfRecipeIngredient() >= ingredient.getAmountOfIngredient()) {
+				ingredient.setAmountOfIngredient(recipeIngredients.getAmountOfRecipeIngredient() - ingredient.getAmountOfIngredient());
+				return true;
 			}
+			else 
+				return false;
 		}
+		return false;
 	}
 
 	public int getIdOfBrew() {
