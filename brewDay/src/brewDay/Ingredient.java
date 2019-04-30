@@ -1,3 +1,5 @@
+package brewDay;
+
 public class Ingredient {
 	private String nameOfIngredient;
 	private float amountOfIngredient;
@@ -24,14 +26,14 @@ public class Ingredient {
 		this.nameOfIngredient = nameOfIngredient;
 	}
 	
-//	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
-//		Ingredient i = new Ingredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
-//		String sql = "Insert Into Ingredient Values (NULL,'" + nameOfIngredient + "','" + amountOfIngredient + "','" + unitOfIngredient + "')";
-//		Database.Insert(sql);
-//		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the shopping list!");
-//	}
+	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
+		Ingredient i = new Ingredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
+		String sql = "Insert Into Ingredient Values (NULL,'" + nameOfIngredient + "','" + amountOfIngredient + "','" + unitOfIngredient + "')";
+		Database.Insert(sql);
+		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the shopping list!");
+	}
 
-//	public boolean deleteIngredient(String name) {
-//		String sql = "DELETE FROM Ingredient WHERE Name = '" + name + "';"
-//	}
+	public boolean deleteIngredient(String name) {
+		return true;
+	}
 }

@@ -1,3 +1,5 @@
+package brewDay;
+
 public class RecipeIngredient extends Ingredient {
 	
 	public RecipeIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {

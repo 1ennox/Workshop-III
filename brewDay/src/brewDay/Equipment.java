@@ -1,3 +1,5 @@
+package brewDay;
+
 public class Equipment {
 	private Brew b;
 	private float capacity;

@@ -1,3 +1,5 @@
+package brewDay;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -5,8 +7,8 @@ import java.util.Scanner;
 public class Start {
 
 	public static void main(String[] args) {
-//		ShoppingList sl = new ShoppingList("Shopping list 1");
-//		sl.addIngredient("water", 100, 'L');
+		ShoppingList sl = new ShoppingList("Shopping list 1");
+		sl.addIngredient("fuckDatabasejarpack", 100, 'L');
 //		sl.addIngredient("salt", 500, 'g');
 ////
 //		Recipe r = new Recipe("Beer", 100, 'L');
