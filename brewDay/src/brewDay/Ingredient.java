@@ -10,7 +10,17 @@ public class Ingredient {
 		this.amountOfIngredient = amountOfIngredient;
 		 this.unitOfIngredient = unitOfIngredient;
 	}
+//function 1 add ingredient to the storage	
+	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
+		Ingredient i = new Ingredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
+		String sql = "Insert Into Ingredient Values (NULL,'" + nameOfIngredient + "','" + amountOfIngredient + "','" + unitOfIngredient + "')";
+		Database.Insert(sql);
+		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the storage!");
+	}
+
 	
+	
+//may be used in the future	
 	public float getAmountOfIngredient() {
 		return amountOfIngredient;
 	}
@@ -32,13 +42,6 @@ public class Ingredient {
 
 	public void setUnitOfIngredient(char unitOfIngredient) {
 		this.unitOfIngredient = unitOfIngredient;
-	}
-
-	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
-		Ingredient i = new Ingredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
-		String sql = "Insert Into Ingredient Values (NULL,'" + nameOfIngredient + "','" + amountOfIngredient + "','" + unitOfIngredient + "')";
-		Database.Insert(sql);
-		System.out.println("Ingredient " + i.getNameOfIngredient() + " has been successfully added to the storage!");
 	}
 
 	public boolean deleteIngredient(String name) {

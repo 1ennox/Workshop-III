@@ -49,7 +49,6 @@ public class Start {
 			recipeId = rs.getInt("RecipeID");
 		}
 		String sqlDetail = "SELECT Name, Amount, Unit FROM RecipeIngredient WHERE RecipeID = " + recipeId;
-		System.out.println(sqlDetail);
 		rs = Database.Select(sqlDetail);
 		System.out.println("The recipe " + name + " have the following ingredients: ");
 		while(rs.next()) {
@@ -114,9 +113,8 @@ public class Start {
 				int amount = input.nextInt();
 				System.out.println("Input the unit of the ingredient: ");
 				char unit = input.next().charAt(0);
-				String sql = "INSERT INTO RecipeIngredient VALUES (NULL, '" + name + "','" + amount +"','" + unit +"','" + recipeId;
-				Database.Insert(sql);
-				System.out.println("Ingredient " + name + " has been successluffy added into recipe " + rName);
+				RecipeIngredient ri = new RecipeIngredient(name, amount, unit);
+				ri.addIngredient(name, amount, unit, recipeId);
 			}
 			else {
 				System.out.println("You must input a valid integer!");
@@ -128,22 +126,7 @@ public class Start {
 	}
 
 
-	//	public Recipe getRecipe(String name) throws SQLException {
-	//		String sql = "SELECT * FROM Recipe WHERE Name = '" + name + "'";
-	//		ResultSet rs = Database.Select(sql);
-	//		int RecipeID;
-	//		String Name;
-	//		float Quantity;
-	//		char Unit;
-	//		while(rs.next())
-	//		{
-	//			RecipeID  = rs.getInt("RecipeID");
-	//			Name = rs.getString("Name");
-	//			Quantity = rs.getFloat("Quantity");
-	//			Unit = (char) rs.getShort("Unit");
-	//		}
-	//		return Recipe(RecipeID, Name, Quantity, Unit);
-	//	}
+
 
 
 

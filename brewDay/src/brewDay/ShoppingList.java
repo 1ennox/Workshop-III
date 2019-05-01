@@ -14,7 +14,7 @@ public class ShoppingList {
 		this.NumberOfIngredient = 0;
 		this.ingredients = new ArrayList<Ingredient>();
 	}
-
+//add ingredient to the shopping list but not the storage
 	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
 		Ingredient i = new Ingredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
 		this.ingredients.add(i);

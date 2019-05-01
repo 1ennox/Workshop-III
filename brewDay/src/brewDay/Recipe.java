@@ -23,74 +23,7 @@ public class Recipe {
 		Database.Insert("Insert Into Recipe Values (NULL,'" + nameOfRecipe + "','"+ quantityOfRecipe + "','" + unit + "')");
 	}
 
-
-	public void deleteRecipeIngredient(String name) {
-		String sqlGetId = "SELECT FROM Recipe WHERE Name = '" + nameOfRecipe + "'";
-		ResultSet rs = Database.Select(sqlGetId);
-		try {
-			int recipeId = rs.getInt("RecipeID");
-			String sqlDelete = "DELETE FROM RecipeIngredient WHERE Name = '" + name + "' and Recipe ID = '" + recipeId + "'" ;
-			Database.Delete(sqlDelete);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	public void updateQuantity(float quantity) throws SQLException {
-		if(quantity > 0) {
-			this.setQuantityOfRecipe(quantity);
-			String sqlUpdate = "UPDATE Recipe SET Quantity = '" + quantity + "'";
-			Database.Update(sqlUpdate);
-		}
-		else {
-			System.out.println("You must input a positive number.");
-		}
-	}
-
-	public void deleteRecipe(String name) {
-		while(true) {
-			System.out.println("Are you sure to delete recipe " + name +" in the datase? Input [Y] for yes, [N] for no.");
-			Scanner input = new Scanner(System.in);
-			String c = input.nextLine();
-			if(c.equals("Y") || c.equals("y")) {
-				String sqlDelete = "DELETE FROM Recipe WHERE Name = '" + name +"'";
-				Database.Delete(sqlDelete);
-				System.out.println("Recipe " + name + " has been successfully removed from the database.");
-				break;
-			}
-			else if(c.equals("N") || c.equals("n")) {
-				System.out.println("Delete process stopped.");
-				break;
-			}
-			else {
-				System.out.println("You must input Y or N.");
-			}
-		}	
-	}
-
-
-	public int getRecipeId() throws SQLException {
-		String sqlGetId = "SELECT RecipeID FROM Recipe WHERE Name = '" + this.nameOfRecipe + "' ";
-		ResultSet rs = Database.Select(sqlGetId);
-		while(rs.next()) {
-			int recipeId = rs.getInt("RecipeID");
-			System.out.println(recipeId);
-			return recipeId;
-		}
-		return 000;
-	}
-
-	public char getUnit() {
-		return unit;
-	}
-
-	public void setUnit(char unit) throws SQLException {
-		String sqlSet = "UPDATE Recipe SET Unit = '" + unit +"' Where RecipeID = " + getRecipeId()+ "";
-		Database.Update(sqlSet);
-		this.unit = unit;
-	}
-
+//function 1	
 	public void addRecipeIngredients(RecipeIngredient recipeIngredient) throws SQLException {
 		String name = recipeIngredient.getNameOfIngredient();
 		float amount = recipeIngredient.getAmountOfRecipeIngredient();
@@ -119,6 +52,75 @@ public class Recipe {
 		else {
 			System.out.println("Ingredient " + name +" has already been put into the recipe.");
 		}
+	}
+// function 2	
+	public void deleteRecipe(String name) {
+		while(true) {
+			System.out.println("Are you sure to delete recipe " + name +" in the datase? Input [Y] for yes, [N] for no.");
+			Scanner input = new Scanner(System.in);
+			String c = input.nextLine();
+			if(c.equals("Y") || c.equals("y")) {
+				String sqlDelete = "DELETE FROM Recipe WHERE Name = '" + name +"'";
+				Database.Delete(sqlDelete);
+				System.out.println("Recipe " + name + " has been successfully removed from the database.");
+				break;
+			}
+			else if(c.equals("N") || c.equals("n")) {
+				System.out.println("Delete process stopped.");
+				break;
+			}
+			else {
+				System.out.println("You must input Y or N.");
+			}
+		}	
+	}
+//function 3 
+	public int getRecipeId() throws SQLException {
+		String sqlGetId = "SELECT RecipeID FROM Recipe WHERE Name = '" + this.nameOfRecipe + "' ";
+		ResultSet rs = Database.Select(sqlGetId);
+		while(rs.next()) {
+			int recipeId = rs.getInt("RecipeID");
+			System.out.println(recipeId);
+			return recipeId;
+		}
+		return 000;
+	}
+//function 4  may need some change to the variable	
+	public void deleteRecipeIngredient(String name) {
+		String sqlGetId = "SELECT FROM Recipe WHERE Name = '" + nameOfRecipe + "'";
+		ResultSet rs = Database.Select(sqlGetId);
+		try {
+			int recipeId = rs.getInt("RecipeID");
+			String sqlDelete = "DELETE FROM RecipeIngredient WHERE Name = '" + name + "' and Recipe ID = '" + recipeId + "'" ;
+			Database.Delete(sqlDelete);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	
+//useless functions, but may be used in the future	
+	
+	public void updateQuantity(float quantity) throws SQLException {
+		if(quantity > 0) {
+			this.setQuantityOfRecipe(quantity);
+			String sqlUpdate = "UPDATE Recipe SET Quantity = '" + quantity + "'";
+			Database.Update(sqlUpdate);
+		}
+		else {
+			System.out.println("You must input a positive number.");
+		}
+	}
+
+	public char getUnit() {
+		return unit;
+	}
+
+	public void setUnit(char unit) throws SQLException {
+		String sqlSet = "UPDATE Recipe SET Unit = '" + unit +"' Where RecipeID = " + getRecipeId()+ "";
+		Database.Update(sqlSet);
+		this.unit = unit;
 	}
 
 	public float getQuantityOfRecipe() {
