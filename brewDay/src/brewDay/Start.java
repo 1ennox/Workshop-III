@@ -1,105 +1,223 @@
 package brewDay;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Start {
 
-	public static void main(String[] args) {
+	public static int readIntCommand() {
+		Scanner getCommand = new Scanner(System.in);
+		int result;
+		try {
+			result = getCommand.nextInt();
+		} catch (InputMismatchException e) {
+			System.out.println("You muse type an integer!");
+			result = readIntCommand();
+		}
+		while (result < 0) {
+			System.out.println("Positive integers only!");
+			result = readIntCommand();
+		}
+		getCommand.nextLine();
+		return result;
+	}
+
+	public static void getAllRecipes() throws SQLException {
+		String sql = " SELECT * FROM Recipe";
+		ResultSet rs = Database.Select(sql);
+		while(rs.next())
+		{
+			String Name = rs.getString("Name");
+			int amount = rs.getInt("Quantity");
+			String unit = rs.getString("unit");
+			System.out.println(Name + " " + amount + " " + unit);
+		}
+		System.out.println();
+	}
+
+	public static void viewSpecificRecipe() throws SQLException {
+		System.out.print("Input the recipe name that you want to check:");
+		Scanner input = new Scanner(System.in);
+		String name = input.nextLine();
+		String sqlGetId = "SELECT RecipeID FROM Recipe WHERE Name = '" + name + "' ";
+		ResultSet rs = Database.Select(sqlGetId);
+		int recipeId = -1;
+		while(rs.next()) {
+			recipeId = rs.getInt("RecipeID");
+		}
+		String sqlDetail = "SELECT Name, Amount, Unit FROM RecipeIngredient WHERE RecipeID = " + recipeId;
+		System.out.println(sqlDetail);
+		rs = Database.Select(sqlDetail);
+		System.out.println("The recipe " + name + " have the following ingredients: ");
+		while(rs.next()) {
+			String iName = rs.getString("Name");
+			int iAmount = rs.getInt("Amount");
+			String iUnit = rs.getString("Unit");
+			System.out.println(iName + " " + iAmount + " " + iUnit);
+		}
+		System.out.println();
+	}
+
+	public static void addRecipe() {
+		System.out.println("Input the name of the recipe (No space in bewteen):");
+		Scanner input = new Scanner(System.in);
+		String name = input.nextLine();
+		System.out.println("Input the quantity of the recipe: ");
+		int quantity = input.nextInt();
+		System.out.println("Input the unit of the recipe: ");
+		char unit = input.next().charAt(0);
+		Recipe r = new Recipe(name, quantity, unit);
+		System.out.println();
+	}
+
+	public static void addIngredient() {
+		while(true) {
+			System.out.println("0.exit");
+			System.out.println("1.Add ingredient to storage");
+			System.out.println("2.Add ingredient to a recipe");
+			int command = readIntCommand();
+			if(command == 0) {
+				break;
+			}
+			else if(command == 1) {
+				System.out.println("Input the name of the ingredient: ");
+				Scanner input = new Scanner(System.in);
+				String name = input.nextLine();
+				System.out.println("Input the amount of the ingredient: ");
+				int amount = input.nextInt();
+				System.out.println("Input the unit of the ingredient: ");
+				char unit = input.next().charAt(0);
+				Ingredient i = new Ingredient(name, amount, unit);
+				i.addIngredient(name, amount, unit);
+			}
+			else if(command == 2) {
+				System.out.println("Input the recipe name that you want to add ingredient: ");
+				Scanner input = new Scanner(System.in);
+				String rName = input.nextLine();
+				String sqlGetId = "SELECT RecipeID FROM Recipe WHERE Name = '" + rName + "' ";
+				ResultSet rs = Database.Select(sqlGetId);
+				int recipeId = -1;
+				try {
+					while(rs.next()) {
+						recipeId = rs.getInt("RecipeID");
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+				System.out.println("Input the name of the ingredient: ");
+				String name = input.nextLine();
+				System.out.println("Input the amount of the ingredient: ");
+				int amount = input.nextInt();
+				System.out.println("Input the unit of the ingredient: ");
+				char unit = input.next().charAt(0);
+				String sql = "INSERT INTO RecipeIngredient VALUES (NULL, '" + name + "','" + amount +"','" + unit +"','" + recipeId;
+				Database.Insert(sql);
+				System.out.println("Ingredient " + name + " has been successluffy added into recipe " + rName);
+			}
+			else {
+				System.out.println("You must input a valid integer!");
+				continue;
+			}
+
+		}
+
+	}
+
+
+	//	public Recipe getRecipe(String name) throws SQLException {
+	//		String sql = "SELECT * FROM Recipe WHERE Name = '" + name + "'";
+	//		ResultSet rs = Database.Select(sql);
+	//		int RecipeID;
+	//		String Name;
+	//		float Quantity;
+	//		char Unit;
+	//		while(rs.next())
+	//		{
+	//			RecipeID  = rs.getInt("RecipeID");
+	//			Name = rs.getString("Name");
+	//			Quantity = rs.getFloat("Quantity");
+	//			Unit = (char) rs.getShort("Unit");
+	//		}
+	//		return Recipe(RecipeID, Name, Quantity, Unit);
+	//	}
+
+
+
+
+	public static void main(String[] args) throws SQLException {
 		ShoppingList sl = new ShoppingList("Shopping list 1");
-		sl.addIngredient("fuckDatabasejarpack", 100, 'L');
-//		sl.addIngredient("salt", 500, 'g');
-////
-//		Recipe r = new Recipe("Beer", 100, 'L');
-//		RecipeIngredient ri1 = new RecipeIngredient("water", 50, 'L');
-//		RecipeIngredient ri2 = new RecipeIngredient("salt", 100, 'g');
-//		r.addRecipeIngredients(ri1);
-//		r.addRecipeIngredients(ri2);
-//		System.out.println("Recipe " + r.getNameOfRecipe() + " has been successfully added!");
-//		System.out.println("Now the storage ingredients are: ");
-//		ArrayList<Ingredient> a = sl.getIngredients();
-//		for(int k = 0; k < a.size(); k++) {
-//			System.out.println(a.get(k).getNameOfIngredient());
-//		}
-//		Brew b1 = new Brew(50, 002, r);
-//		b1.implement(50, 002);
-		System.out.println("---Welcome to Brew Day!---\n");
-		System.out.println("Input the number to select the option you want:");
-		System.out.println("1.Maintain recipe");
-		System.out.println("2.Maintain ingredients");
-		System.out.println("3.History");
-		System.out.println("4.Recommand a recipe");
-		System.out.println("5.Maintain equipment");
 
 		while (true) {
-			Scanner readC = new Scanner(System.in); // reader for command
-			String c = readC.next();
-			if (c.equals("1")) {
-				System.out.println("---You are in 1.Maintain recipe---");
-				System.out.println("Input the number to select the option you want:");
-				System.out.println("0.Back");
-				System.out.println("101.View recipe 1");
-				System.out.println("102.Edit recipe 1");
-				System.out.println("103.Delete recipe 1");
-				System.out.println("201.View recipe 2");
-				System.out.println("202.Edit recipe 2");
-				System.out.println("203.Delete recipe 2");
-				System.out.println("301.View recipe 3");
-				System.out.println("302.Edit recipe 3");
-				System.out.println("303.Delete recipe 3");
-				System.out.println("999.Add a new recipe");
-				while (true) {
-					Scanner readC2 = new Scanner(System.in); // reader for command
-					String c2 = readC2.next();
-					if (c.equals("0")) {
-						break;
-					} else {
-						System.out.println("Done!");
-					}
-				}
-			}
-			if (c.equals("2")) {
-				System.out.println("---You are in 2.Maintain ingredients---");
-				System.out.println("Input the number to select the option you want:");
-				System.out.println("0.Back");
-				System.out.println("101.View ingredient 1");
-				System.out.println("102.Edit ingredient 1");
-				System.out.println("103.Delete ingredient 1");
-				System.out.println("201.View ingredient 2");
-				System.out.println("202.Edit ingredient 2");
-				System.out.println("203.Delete ingredient 2");
-				System.out.println("301.View ingredient 3");
-				System.out.println("302.Edit ingredient 3");
-				System.out.println("303.Delete ingredient 3");
-				System.out.println("999.Add a new ingredient");
-				while (true) {
-					Scanner readC3 = new Scanner(System.in); // reader for command
-					String c3 = readC3.next();
-					if (c.equals("0")) {
-						break;
-					} else {
-						System.out.println("Done!");
-					}
-				}
-			}
-			if (c.equals("3")) {
-				System.out.println("---You are in 3.History---");
-				System.out.println("Input the volume of the beer you want to brew: (ml)");
-				Scanner readVolume = new Scanner(System.in);
-				String inputVolume = readVolume.next();
-				// output the lack of recipe here and the shopping list
-			}
-			if (c.equals("4")) {
-				System.out.println("---You are in 4.Recommand a recipe---");
-				System.out.println("Input the number to select the option you want:");
-				System.out.println("0.Back");
-			}
-			if (c.equals("5")) {
-				System.out.println("---You are in 5.Maintain equipment---");
-				System.out.println("Input the number to select the option you want:");
-				System.out.println("0.Back");
+			System.out.println("You are in start page, input the number to select the option:");
+			System.out.println("1.View all recipes");
+			System.out.println("2.View ingredients of a specific recipe");
+			System.out.println("3.Add recipe");
+			System.out.println("4.Add ingredient");
+			System.out.println("5.Brew history");
+			System.out.println("6.Recommand a recipe");
+			System.out.println("7.Maintain equipment");
+			int command = readIntCommand();
+			switch (command) {
+			case 1:
+				System.out.println("---All the recipes in the database are as follow---");
+				getAllRecipes();
+				break;
+			case 2:
+				viewSpecificRecipe();
+				break;
+			case 3:
+				addRecipe();
+			case 4:
+				addIngredient();
 			}
 		}
+
 	}
+	//			if (c.equals("2")) {
+	//				System.out.println("---You are in 2.Maintain ingredients---");
+	//				System.out.println("Input the number to select the option you want:");
+	//				System.out.println("0.Back");
+	//				System.out.println("101.View ingredient 1");
+	//				System.out.println("102.Edit ingredient 1");
+	//				System.out.println("103.Delete ingredient 1");
+	//				System.out.println("201.View ingredient 2");
+	//				System.out.println("202.Edit ingredient 2");
+	//				System.out.println("203.Delete ingredient 2");
+	//				System.out.println("301.View ingredient 3");
+	//				System.out.println("302.Edit ingredient 3");
+	//				System.out.println("303.Delete ingredient 3");
+	//				System.out.println("999.Add a new ingredient");
+	//				while (true) {
+	//					Scanner readC3 = new Scanner(System.in); // reader for command
+	//					String c3 = readC3.next();
+	//					if (c.equals("0")) {
+	//						break;
+	//					} else {
+	//						System.out.println("Done!");
+	//					}
+	//				}
+	//			}
+	//			if (c.equals("3")) {
+	//				System.out.println("---You are in 3.History---");
+	//				System.out.println("Input the volume of the beer you want to brew: (ml)");
+	//				Scanner readVolume = new Scanner(System.in);
+	//				String inputVolume = readVolume.next();
+	//				// output the lack of recipe here and the shopping list
+	//			}
+	//			if (c.equals("4")) {
+	//				System.out.println("---You are in 4.Recommand a recipe---");
+	//				System.out.println("Input the number to select the option you want:");
+	//				System.out.println("0.Back");
+	//			}
+	//			if (c.equals("5")) {
+	//				System.out.println("---You are in 5.Maintain equipment---");
+	//				System.out.println("Input the number to select the option you want:");
+	//				System.out.println("0.Back");
+	//			}
+	//		}
+
 }

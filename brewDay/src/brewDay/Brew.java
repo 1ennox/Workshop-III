@@ -54,10 +54,9 @@ public class Brew {
 					Database.Update(k1);
 					return true;
 				}
-
 			}
 			return false;
 		}
 	}
-	}
+}
 
