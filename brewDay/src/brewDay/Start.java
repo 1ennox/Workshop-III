@@ -42,22 +42,9 @@ public class Start {
 		System.out.print("Input the recipe name that you want to check:");
 		Scanner input = new Scanner(System.in);
 		String name = input.nextLine();
-		String sqlGetId = "SELECT RecipeID FROM Recipe WHERE Name = '" + name + "' ";
-		ResultSet rs = Database.Select(sqlGetId);
-		int recipeId = -1;
-		while(rs.next()) {
-			recipeId = rs.getInt("RecipeID");
-		}
-		String sqlDetail = "SELECT Name, Amount, Unit FROM RecipeIngredient WHERE RecipeID = " + recipeId;
-		rs = Database.Select(sqlDetail);
-		System.out.println("The recipe " + name + " have the following ingredients: ");
-		while(rs.next()) {
-			String iName = rs.getString("Name");
-			int iAmount = rs.getInt("Amount");
-			String iUnit = rs.getString("Unit");
-			System.out.println(iName + " " + iAmount + " " + iUnit);
-		}
-		System.out.println();
+		Recipe r = new Recipe(name);
+		System.out.println("The Ingredient of recipe " + name +"are as follow: ");
+		r.viewIngredient();
 	}
 
 	public static void addRecipe() {
@@ -69,6 +56,7 @@ public class Start {
 		System.out.println("Input the unit of the recipe: ");
 		char unit = input.next().charAt(0);
 		Recipe r = new Recipe(name, quantity, unit);
+		r.addRecipeToDB();
 		System.out.println();
 	}
 

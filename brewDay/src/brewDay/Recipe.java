@@ -19,11 +19,27 @@ public class Recipe {
 		this.quantityOfRecipe = quantityOfRecipe;
 		this.unit = unit;
 		this.recipeIngredients = new ArrayList<RecipeIngredient>();
-
-		Database.Insert("Insert Into Recipe Values (NULL,'" + nameOfRecipe + "','"+ quantityOfRecipe + "','" + unit + "')");
 	}
 
-//function 1	
+	public Recipe(String nameOfRecipe) throws SQLException {
+		this.nameOfRecipe = nameOfRecipe;
+		this.recipeIngredients = new ArrayList<RecipeIngredient>();
+		String sqlGetId = "SELECT RecipeID FROM Recipe WHERE Name = '" + nameOfRecipe + "' ";
+		ResultSet rs = Database.Select(sqlGetId);
+		int recipeId = -1;
+		while(rs.next()) {
+			recipeId = rs.getInt("RecipeID");
+		}
+		String sqlDetail = "SELECT Quantity, Unit FROM Recipe WHERE RecipeID = " + recipeId;
+		rs = Database.Select(sqlDetail);
+		while(rs.next()) {
+			this.quantityOfRecipe = rs.getInt("Quantity");
+			this.unit = rs.getString("Unit").charAt(0);
+		}
+		System.out.println();
+	}
+
+	//function 1	
 	public void addRecipeIngredients(RecipeIngredient recipeIngredient) throws SQLException {
 		String name = recipeIngredient.getNameOfIngredient();
 		float amount = recipeIngredient.getAmountOfRecipeIngredient();
@@ -53,7 +69,7 @@ public class Recipe {
 			System.out.println("Ingredient " + name +" has already been put into the recipe.");
 		}
 	}
-// function 2	
+	// function 2	
 	public void deleteRecipe(String name) {
 		while(true) {
 			System.out.println("Are you sure to delete recipe " + name +" in the datase? Input [Y] for yes, [N] for no.");
@@ -74,7 +90,7 @@ public class Recipe {
 			}
 		}	
 	}
-//function 3 
+	//function 3 
 	public int getRecipeId() throws SQLException {
 		String sqlGetId = "SELECT RecipeID FROM Recipe WHERE Name = '" + this.nameOfRecipe + "' ";
 		ResultSet rs = Database.Select(sqlGetId);
@@ -85,7 +101,7 @@ public class Recipe {
 		}
 		return 000;
 	}
-//function 4  may need some change to the variable	
+	//function 4  may need some change to the variable	
 	public void deleteRecipeIngredient(String name) {
 		String sqlGetId = "SELECT FROM Recipe WHERE Name = '" + nameOfRecipe + "'";
 		ResultSet rs = Database.Select(sqlGetId);
@@ -97,11 +113,29 @@ public class Recipe {
 			e.printStackTrace();
 		}
 	}
+	//function 5
+	public void addRecipeToDB() {
+		Database.Insert("Insert Into Recipe Values (NULL,'" + nameOfRecipe + "','"+ quantityOfRecipe + "','" + unit + "')");
+	}
+	//function 6
+	public void viewIngredient() throws SQLException {
+		int id = getRecipeId();
+		String sql = "SELECT Name, Amount, Unit FROM RecipeIngredient WHERE RecipeID = " + id;
+		ResultSet rs = Database.Select(sql);
+		while(rs.next())
+		{
+			String Name = rs.getString("Name");
+			float Amount = rs.getFloat("Amount");
+			char Unit = rs.getString("Unit").charAt(0);
+			RecipeIngredient ri = new RecipeIngredient(Name, Amount, Unit);
+			this.recipeIngredients.add(ri);
+			System.out.println(ri.getNameOfIngredient() + ri.getAmountOfIngredient() + ri.getUnitOfIngredient());
+		}
+		System.out.println();
+	}
 
+	//useless functions, but may be used in the future	
 
-	
-//useless functions, but may be used in the future	
-	
 	public void updateQuantity(float quantity) throws SQLException {
 		if(quantity > 0) {
 			this.setQuantityOfRecipe(quantity);
