@@ -21,25 +21,34 @@ public class Recipe {
 		this.recipeIngredients = new ArrayList<RecipeIngredient>();
 	}
 
-	public Recipe(String nameOfRecipe) throws SQLException {
+	public Recipe(String nameOfRecipe) {
 		this.nameOfRecipe = nameOfRecipe;
 		this.recipeIngredients = new ArrayList<RecipeIngredient>();
 		String sqlGetId = "SELECT RecipeID FROM Recipe WHERE Name = '" + nameOfRecipe + "' ";
 		ResultSet rs = Database.Select(sqlGetId);
 		int recipeId = -1;
-		while(rs.next()) {
-			recipeId = rs.getInt("RecipeID");
+		try {
+			while(rs.next()) {
+				recipeId = rs.getInt("RecipeID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		
 		String sqlDetail = "SELECT Quantity, Unit FROM Recipe WHERE RecipeID = " + recipeId;
 		rs = Database.Select(sqlDetail);
-		while(rs.next()) {
-			this.quantityOfRecipe = rs.getInt("Quantity");
-			this.unit = rs.getString("Unit").charAt(0);
+		try {
+			while(rs.next()) {
+				this.quantityOfRecipe = rs.getInt("Quantity");
+				this.unit = rs.getString("Unit").charAt(0);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		System.out.println();
 	}
 
-	//function 1	
+	//function 1	maybe put into class:RI
 	public void addRecipeIngredients(RecipeIngredient recipeIngredient) throws SQLException {
 		String name = recipeIngredient.getNameOfIngredient();
 		float amount = recipeIngredient.getAmountOfRecipeIngredient();
@@ -92,14 +101,21 @@ public class Recipe {
 	}
 	//function 3 
 	public int getRecipeId() throws SQLException {
-		String sqlGetId = "SELECT RecipeID FROM Recipe WHERE Name = '" + this.nameOfRecipe + "' ";
+		int recipeID = -1;
+		int quantity = -1;
+		String sqlGetId = "SELECT RecipeID, Quantity FROM Recipe WHERE Name = '" + this.nameOfRecipe + "'";
 		ResultSet rs = Database.Select(sqlGetId);
 		while(rs.next()) {
-			int recipeId = rs.getInt("RecipeID");
-			System.out.println(recipeId);
-			return recipeId;
+			recipeID = rs.getInt("RecipeID");
+			quantity = rs.getInt("Quantity");
+//			System.out.println(recipeId);
 		}
-		return 000;
+		if(quantity == -1) {
+			return -1;
+		}
+		else {
+			return recipeID;
+		}
 	}
 	//function 4  may need some change to the variable	
 	public void deleteRecipeIngredient(String name) {
@@ -116,6 +132,7 @@ public class Recipe {
 	//function 5
 	public void addRecipeToDB() {
 		Database.Insert("Insert Into Recipe Values (NULL,'" + nameOfRecipe + "','"+ quantityOfRecipe + "','" + unit + "')");
+		System.out.println(nameOfRecipe +" has been added into database.");
 	}
 	//function 6
 	public void viewIngredient() throws SQLException {
@@ -132,6 +149,13 @@ public class Recipe {
 			System.out.println(ri.getNameOfIngredient() + ri.getAmountOfIngredient() + ri.getUnitOfIngredient());
 		}
 		System.out.println();
+	}
+	//function 7
+	public boolean whetherInDB() {
+		if(this.getQuantityOfRecipe() == 0.0)
+			return false;
+		else
+			return true;
 	}
 
 	//useless functions, but may be used in the future	

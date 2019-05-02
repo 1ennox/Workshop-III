@@ -1,5 +1,7 @@
 package brewDay;
 
+import java.sql.SQLException;
+
 public class RecipeIngredient extends Ingredient {
 
 	public RecipeIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient) {
@@ -7,10 +9,12 @@ public class RecipeIngredient extends Ingredient {
 	}
 
 	//function 1 add ingredient to the specific recipe	
-	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient, int recipeId) {
-		String sql = "INSERT INTO RecipeIngredient VALUES (NULL, '" + nameOfIngredient + "','" + amountOfIngredient +"','" + unitOfIngredient +"','" + recipeId;
+	public void addIngredient(String nameOfIngredient, float amountOfIngredient, char unitOfIngredient, int recipeId) throws SQLException {
+		String sql = "INSERT INTO RecipeIngredient VALUES (NULL, '" + nameOfIngredient + "','" + amountOfIngredient +"','" + unitOfIngredient +"'," + recipeId + ")";
 		Database.Insert(sql);
-		System.out.println("Ingredient " + nameOfIngredient + " has been successluffy added into recipe ");
+		System.out.println("Ingredient " + nameOfIngredient + " has been successfully added into recipe ");
+		super.addIngredient(nameOfIngredient, amountOfIngredient, unitOfIngredient);
+
 	}
 
 	
