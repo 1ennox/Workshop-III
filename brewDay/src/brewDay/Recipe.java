@@ -146,7 +146,7 @@ public class Recipe {
 			char Unit = rs.getString("Unit").charAt(0);
 			RecipeIngredient ri = new RecipeIngredient(Name, Amount, Unit);
 			this.recipeIngredients.add(ri);
-			System.out.println(ri.getNameOfIngredient() + ri.getAmountOfIngredient() + ri.getUnitOfIngredient());
+			System.out.println(ri.getNameOfIngredient()+ " " + ri.getAmountOfIngredient()+ " " + ri.getUnitOfIngredient());
 		}
 		System.out.println();
 	}

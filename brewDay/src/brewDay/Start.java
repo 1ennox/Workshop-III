@@ -77,7 +77,7 @@ public class Start {
 				int amount = readIntCommand();
 				System.out.println("Input the unit of the ingredient: ");
 				char unit = input.next().charAt(0);
-				Ingredient i = new Ingredient(name, amount, unit);
+				StorageIngredient i = new StorageIngredient(name, amount, unit);
 				try {
 					i.addIngredient(name, amount, unit);
 				} catch (SQLException e) {
@@ -112,7 +112,7 @@ public class Start {
 				char unit = input.next().charAt(0);
 				RecipeIngredient ri = new RecipeIngredient(name, amount, unit);
 				try {
-					ri.addIngredient(name, amount, unit, recipeId);
+					ri.addIngredientToRecipe(recipeId, rName);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -137,6 +137,7 @@ public class Start {
 				break;
 			}
 			else {
+				System.out.println("Recipe " + recipeName +" is found in database.");
 				System.out.println("Input [Y] to implement, otherwise, input [N]");
 				command = getInput.nextLine();
 			}
