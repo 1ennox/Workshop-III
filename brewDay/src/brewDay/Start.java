@@ -43,8 +43,14 @@ public class Start {
 		Scanner input = new Scanner(System.in);
 		String name = input.nextLine();
 		Recipe r = new Recipe(name);
-		System.out.println("The Ingredient of recipe " + name +" are as follow: ");
-		r.viewIngredient();
+		if(r.whetherInDB() == false) {
+			System.out.println("Recipe " + name + " not found in database.");
+		}
+		else {
+			System.out.println("The Ingredient of recipe " + name +" are as follow: ");
+			r.viewIngredient();
+		}
+		
 	}
 
 	public static void addRecipe() {
@@ -157,7 +163,9 @@ public class Start {
 			}
 		}
 
-
+//		public static void recommend() {
+//			Brew b = new Brew
+//		}
 
 	}
 

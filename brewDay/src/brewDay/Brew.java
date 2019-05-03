@@ -10,7 +10,7 @@ public class Brew {
 	private float batchSize;
 	private String date;
 
-	private Note note;
+	private Note note;//useless variables
 	private Recipe recipe;
 	private StorageIngredient ingredient;
 
