@@ -146,7 +146,7 @@ public class Start {
 				b.implement(r);
 			}
 			else if(command.equals("N") || command.equals("n")) {
-				System.out.println("Inplement process stop.");
+				System.out.println("Implement process stop.");
 				break;
 			}
 			else {

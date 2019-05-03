@@ -22,44 +22,50 @@ public class Brew {
 		}
 	}
 
-	public boolean implement(Recipe recipe) throws SQLException {
-//		int flag = 0;
-//		int Rid;
-//		Rid = recipe.getRecipeId();
-//		ResultSet getRI = Database.Select("SELECT Name, Amount FROM RecipeIngredient Where RecipeID = " + Rid);
-//		while (getRI.next()) {
-//			String nameOfRI = getRI.getString("Name");
-//			int amountOfRI = getRI.getInt("Amount");
-//			ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
-//			while(getAmountOfIngredient.next()) {
-//				int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
-//				if (amountOfRI >= amountOfIngredient) {
-//					continue;
-//				} else {
-//					flag = 1;
-//					break;
-//				}
-//			}
-//		}
-//		if (flag == 0) {
-//			while (getRI.next()) {
-//				String nameOfRI = getRI.getString("Name");
-//				int amountOfRI = getRI.getInt("Amount");
-//				ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
-//				while(getAmountOfIngredient.next()) {
-//					int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
-//					int result = amountOfIngredient - amountOfRI;
-//					String k1 = "UPDATE Ingredient SET Amount = " + result + "WHERE Name = '" + nameOfRI + "'";
-//					Database.Update(k1);
-//					System.out.println("Update amount of " + nameOfRI);
-//				}
-//				return true;
-//			}
-//		}else {
-//			System.out.println("No enough ingredient.");
-//			return false;
-//		}
-//		return false;
+	public void implement(Recipe recipe) throws SQLException {
+		int flag = 0;
+		int Rid;
+		Rid = recipe.getRecipeId();
+		ResultSet getRI = Database.Select("SELECT Name, Amount FROM RecipeIngredient Where RecipeID = " + Rid);
+		while (getRI.next()) {
+			String nameOfRI = getRI.getString("Name");
+			int amountOfRI = getRI.getInt("Amount");
+			
+			System.out.println("RI:" + nameOfRI + " " + amountOfRI);
+			
+			ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
+			while(getAmountOfIngredient.next()) {
+				String nameOfIngredient = getAmountOfIngredient.getString("Name");
+				int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
+				System.out.println("Ingredient: "+ nameOfIngredient + " " + amountOfIngredient);
+				if(nameOfIngredient.equals(nameOfRI)) {
+					if (amountOfIngredient >= amountOfRI) {
+						continue;
+					} else {
+						flag = 1;
+						break;
+					}
+				}
+			}
+			System.out.println("Flag:" + flag);
+		}
+		if (flag == 0) {
+			ResultSet getRI1 = Database.Select("SELECT Name, Amount FROM RecipeIngredient Where RecipeID = " + Rid);
+			while (getRI1.next()) {
+				String nameOfRI = getRI1.getString("Name");
+				int amountOfRI = getRI1.getInt("Amount");
+				ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
+				while(getAmountOfIngredient.next()) {
+					int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
+					int result = amountOfIngredient - amountOfRI;
+					String k1 = "UPDATE Ingredient SET Amount = " + result + " WHERE Name = '" + nameOfRI + "'";
+					Database.Update(k1);
+					System.out.println("Update amount of " + nameOfRI);
+				}
+			}
+		}else {
+			System.out.println("No enough ingredient.");
+		}
 	}
 	
 }
