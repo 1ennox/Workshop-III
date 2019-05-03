@@ -2,13 +2,13 @@ package brewDay;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Brew {
 	private float batchSize;
 	private Date date;
-	private Date time;
 
 	private Note note;
 	private Recipe recipe;
@@ -16,56 +16,61 @@ public class Brew {
 
 	public Brew(float batchSize, Recipe recipe) {
 		if(batchSize > 0) {
+			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			this.date = new Date();
 			this.batchSize = batchSize;
-			this.date = new Date(System.currentTimeMillis());
 			this.recipe = recipe; 
 		}
 	}
 
-	public void implement(Recipe recipe) throws SQLException {
-		int flag = 0;
-		int Rid;
+	public void implement(Recipe recipe) throws SQLException { //implement the recipe that use select
+		int flag = 0; //a mark
+		int Rid; //recipe ID, for searching use
 		Rid = recipe.getRecipeId();
 		ResultSet getRI = Database.Select("SELECT Name, Amount FROM RecipeIngredient Where RecipeID = " + Rid);
-		while (getRI.next()) {
+		while (getRI.next()) { //get amount from the class RecipeIngredient
 			String nameOfRI = getRI.getString("Name");
 			int amountOfRI = getRI.getInt("Amount");
-			
-			System.out.println("RI:" + nameOfRI + " " + amountOfRI);
-			
 			ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
-			while(getAmountOfIngredient.next()) {
+			while(getAmountOfIngredient.next()) {//get amount from the class Ingredient
 				String nameOfIngredient = getAmountOfIngredient.getString("Name");
 				int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
-				System.out.println("Ingredient: "+ nameOfIngredient + " " + amountOfIngredient);
-				if(nameOfIngredient.equals(nameOfRI)) {
-					if (amountOfIngredient >= amountOfRI) {
+				if(nameOfIngredient.equals(nameOfRI)) { //for the same ingredient in RI and ingredient
+					if (amountOfIngredient >= amountOfRI) { //if the amount is enough for this operation, do other matching 
 						continue;
-					} else {
+					} else {// if no enough ingredient, the process stopped and give error message
 						flag = 1;
 						break;
 					}
 				}
 			}
-			System.out.println("Flag:" + flag);
 		}
-		if (flag == 0) {
+		if (flag == 0) {//implement process
 			ResultSet getRI1 = Database.Select("SELECT Name, Amount FROM RecipeIngredient Where RecipeID = " + Rid);
-			while (getRI1.next()) {
+			while (getRI1.next()) {//get amount from the class RecipeIngredient
 				String nameOfRI = getRI1.getString("Name");
 				int amountOfRI = getRI1.getInt("Amount");
 				ResultSet getAmountOfIngredient = Database.Select("SELECT Name, Amount FROM Ingredient WHERE Name = '" + nameOfRI + "'");
-				while(getAmountOfIngredient.next()) {
+				while(getAmountOfIngredient.next()) {//get amount from the class Ingredient
 					int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
-					int result = amountOfIngredient - amountOfRI;
+					int result = amountOfIngredient - amountOfRI; //subtract and update the amount in class Ingredient
 					String k1 = "UPDATE Ingredient SET Amount = " + result + " WHERE Name = '" + nameOfRI + "'";
 					Database.Update(k1);
+					
+//					String sqlBrew = "Insert Into Brew Values (NULL, " + batchSize+ " , " + date.format(date) + " , " + Rid +")"; //insert brew data into database
+//					System.out.println(sqlBrew);
+//					Database.Insert(sqlBrew);
+					System.out.println("Brew finished.");
 					System.out.println("Update amount of " + nameOfRI);
 				}
 			}
 		}else {
 			System.out.println("No enough ingredient.");
 		}
+	}
+	
+	public void recommend() {
+		
 	}
 	
 }

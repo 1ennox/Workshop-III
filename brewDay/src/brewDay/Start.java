@@ -144,6 +144,7 @@ public class Start {
 			if(command.equals("Y") || command.equals("y")){
 				Brew b = new Brew(r.getQuantityOfRecipe(), r);
 				b.implement(r);
+				break;
 			}
 			else if(command.equals("N") || command.equals("n")) {
 				System.out.println("Implement process stop.");
