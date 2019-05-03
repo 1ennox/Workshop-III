@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Brew {
 	private float batchSize;
-	private Date date;
+	private String date;
 
 	private Note note;
 	private Recipe recipe;
@@ -16,8 +16,8 @@ public class Brew {
 
 	public Brew(float batchSize, Recipe recipe) {
 		if(batchSize > 0) {
-			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			this.date = new Date();
+			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");		
+			this.date = date.format(new Date());
 			this.batchSize = batchSize;
 			this.recipe = recipe; 
 		}
@@ -55,15 +55,14 @@ public class Brew {
 					int amountOfIngredient = getAmountOfIngredient.getInt("Amount");
 					int result = amountOfIngredient - amountOfRI; //subtract and update the amount in class Ingredient
 					String k1 = "UPDATE Ingredient SET Amount = " + result + " WHERE Name = '" + nameOfRI + "'";
-					Database.Update(k1);
-					
-//					String sqlBrew = "Insert Into Brew Values (NULL, " + batchSize+ " , " + date.format(date) + " , " + Rid +")"; //insert brew data into database
-//					System.out.println(sqlBrew);
-//					Database.Insert(sqlBrew);
+//					Database.Update(k1);
 					System.out.println("Brew finished.");
 					System.out.println("Update amount of " + nameOfRI);
 				}
 			}
+			String sqlBrew = "Insert Into Brew Values (NULL, " + batchSize+ " , '" + date + "' , " + Rid +")"; //insert brew data into database
+			System.out.println(sqlBrew);
+			Database.Insert(sqlBrew);
 		}else {
 			System.out.println("No enough ingredient.");
 		}
