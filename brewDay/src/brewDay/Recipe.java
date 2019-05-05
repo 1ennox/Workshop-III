@@ -8,13 +8,13 @@ import java.util.Scanner;
 public class Recipe {
 	private String nameOfRecipe;
 	private float quantityOfRecipe;
-	private char unit;
+	private String unit;
 	private int recipeId;
 
 	private ArrayList<RecipeIngredient> recipeIngredients;
 
 
-	public Recipe(String nameOfRecipe, float quantityOfRecipe, char unit) {
+	public Recipe(String nameOfRecipe, float quantityOfRecipe, String unit) {
 		this.nameOfRecipe = nameOfRecipe;
 		this.quantityOfRecipe = quantityOfRecipe;
 		this.unit = unit;
@@ -40,7 +40,7 @@ public class Recipe {
 		try {
 			while(rs.next()) {
 				this.quantityOfRecipe = rs.getInt("Quantity");
-				this.unit = rs.getString("Unit").charAt(0);
+				this.unit = rs.getString("Unit");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -150,7 +150,7 @@ public class Recipe {
 		}
 		System.out.println();
 	}
-	//function 7
+	//function 7, can only be used after generator: Recipe(name)
 	public boolean whetherInDB() {
 		if(this.getQuantityOfRecipe() == 0.0)
 			return false;
@@ -171,11 +171,11 @@ public class Recipe {
 		}
 	}
 
-	public char getUnit() {
+	public String getUnit() {
 		return unit;
 	}
 
-	public void setUnit(char unit) throws SQLException {
+	public void setUnit(String unit) throws SQLException {
 		String sqlSet = "UPDATE Recipe SET Unit = '" + unit +"' Where RecipeID = " + getRecipeId()+ "";
 		Database.Update(sqlSet);
 		this.unit = unit;

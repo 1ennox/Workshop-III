@@ -60,7 +60,7 @@ public class Start {
 		System.out.println("Input the quantity of the recipe: ");
 		int quantity = input.nextInt();
 		System.out.println("Input the unit of the recipe: ");
-		char unit = input.next().charAt(0);
+		String unit = input.next();
 		Recipe r = new Recipe(name, quantity, unit);
 		r.addRecipeToDB();
 		System.out.println();
