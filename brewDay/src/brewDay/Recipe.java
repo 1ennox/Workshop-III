@@ -11,8 +11,6 @@ public class Recipe {
 	private String unit;
 	private int recipeId;
 	
-	private int k; //test
-	
 	private ArrayList<RecipeIngredient> recipeIngredients;
 
 
